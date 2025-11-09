@@ -1,11 +1,11 @@
-/* —— basic reset —— */
+/* Basic reset */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* —— body + fonts —— */
+/* Body and fonts */
 body {
   font-family: "Montserrat", Arial, Helvetica, sans-serif;
   color: #333;
@@ -18,7 +18,7 @@ body {
   max-width: 900px;
 }
 
-/* header */
+/* Header */
 .site-header {
   text-align: center;
   padding-top: 50px;
@@ -36,7 +36,7 @@ body {
   margin-bottom: 10px;
 }
 
-/* category filter */
+/* Category filter */
 .search-section {
   margin: 30px 0;
   display: flex;
@@ -58,7 +58,7 @@ body {
   border-color: #666;
 }
 
-/* chat section */
+/* Chat section */
 .chatbox {
   margin: 40px 0;
   border: 2px solid #000;
@@ -73,15 +73,64 @@ body {
 
 .chat-window {
   padding: 20px;
-  font-size: 18px;
-  line-height: 1.5;
-  height: 250px;
+  font-size: 16px;
+  line-height: 1.6;
+  height: 300px;
   overflow-y: auto;
   background: #fafafa;
   margin-bottom: 20px;
+  border-radius: 4px;
 }
 
-/* placeholder message */
+/* Chat messages */
+.chat-message {
+  margin-bottom: 16px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+
+.chat-message.user {
+  background: #e3f2fd;
+  text-align: right;
+  margin-left: 20%;
+}
+
+.chat-message.assistant {
+  background: #f5f5f5;
+  margin-right: 20%;
+  border-left: 4px solid #000;
+}
+
+.chat-message.assistant p {
+  margin-bottom: 12px;
+}
+
+.chat-message.assistant ul,
+.chat-message.assistant ol {
+  margin: 12px 0;
+  padding-left: 24px;
+}
+
+.chat-message.assistant li {
+  margin-bottom: 8px;
+}
+
+.chat-message.assistant strong {
+  font-weight: 600;
+  display: block;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+.chat-message.system {
+  background: #fff3cd;
+  text-align: center;
+  font-style: italic;
+}
+
+/* Placeholder message */
 .placeholder-message {
   width: 100%;
   text-align: center;
@@ -90,7 +139,7 @@ body {
   font-size: 18px;
 }
 
-/* input row */
+/* Input row */
 .chat-form {
   display: flex;
   gap: 12px;
@@ -135,7 +184,12 @@ body {
   outline-offset: 2px;
 }
 
-/* visually hidden */
+.chat-form button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* Visually hidden */
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -148,7 +202,7 @@ body {
   border: 0;
 }
 
-/* footer */
+/* Footer */
 .site-footer {
   margin: 60px 0 40px;
   text-align: center;
@@ -170,7 +224,7 @@ body {
   color: #666666;
 }
 
-/* products grid */
+/* Products grid */
 .products-grid {
   display: flex;
   flex-wrap: wrap;
@@ -180,12 +234,26 @@ body {
 
 .product-card {
   flex: 0 1 calc(33.333% - 14px);
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
   padding: 15px;
-  border-radius: 4px;
+  border-radius: 8px;
   display: flex;
   gap: 15px;
   min-height: 160px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.product-card:hover {
+  border-color: #666;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-card.selected {
+  border-color: #000;
+  background-color: #f0f0f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .product-card img {
@@ -211,9 +279,73 @@ body {
 .product-card p {
   font-size: 14px;
   color: #666;
+  margin-bottom: 8px;
 }
 
-/* selected products */
+/* Product description overlay on hover */
+.product-description {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.92);
+  color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-y: auto;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.product-card:hover .product-description {
+  opacity: 1;
+  visibility: visible;
+}
+
+.product-description h4 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.product-description p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #ddd;
+}
+
+/* Selection indicator badge */
+.selection-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #000;
+  color: #fff;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  z-index: 20;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.product-card.selected .selection-badge {
+  opacity: 1;
+}
+
+/* Selected products */
 .selected-products {
   margin: 40px 0;
   padding: 20px;
@@ -226,15 +358,90 @@ body {
   margin-bottom: 20px;
 }
 
-#selectedProductsList {
+.selected-list {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  min-height: 50px;
+  margin-bottom: 15px;
+}
+
+.selected-list.empty::after {
+  content: "No products selected yet";
+  color: #999;
+  font-style: italic;
+  width: 100%;
+  text-align: center;
+  padding: 15px;
+}
+
+.selected-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+.selected-item-image {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.selected-item span {
+  flex: 1;
+}
+
+.selected-item button {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.selected-item button:hover {
+  color: #000;
+}
+
+.clear-btn {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #666;
+  background: #fff;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.clear-btn:hover {
+  border-color: #000;
+  color: #000;
+}
+
+.clear-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .generate-btn {
   width: 100%;
-  margin-top: 20px;
   padding: 16px;
   font-size: 18px;
   font-weight: 500;
@@ -250,6 +457,63 @@ body {
   background: #666;
 }
 
+.generate-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
 .generate-btn i {
   margin-right: 8px;
+}
+
+/* Modal for product descriptions */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #666;
+  cursor: pointer;
+}
+
+.close-modal:hover {
+  color: #000;
+}
+
+.modal-content h3 {
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.modal-content p {
+  line-height: 1.6;
+  color: #333;
 }
