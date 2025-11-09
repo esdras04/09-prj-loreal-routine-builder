@@ -222,7 +222,7 @@ generateRoutineBtn.addEventListener("click", async () => {
   const productNames = selectedProducts.map((p) => p.name).join(", ");
   const systemMessage = `You are a helpful beauty advisor for L'Oréal. You ONLY discuss L'Oréal products, skincare, haircare, makeup, and beauty topics. If asked about anything unrelated to cosmetics or beauty (like coding, math, general knowledge, etc.), politely redirect the conversation back to beauty and L'Oréal products.
 
-Create a personalized skincare/beauty routine using these selected L'Oréal products: ${productNames}. Provide step-by-step instructions and explain why each product should be used in that order.`;
+Create a personalized skincare/beauty routine using these selected L'Oréal products: ${productNames}. Provide step-by-step instructions and explain why each product should be used in that order. within the max token limit.`;
 
   /* Add user request to chat */
   addMessageToChat(
